@@ -30,7 +30,7 @@ public class HelloController {
         
     @RequestMapping("/pets")
     public List<Pet> getAllPets(){
-        String query = "SELECT * FROM pet_hotel";
+        String query = "SELECT * FROM pets";
         List<Pet> pets = jdbcTemplate.query(
             query, new PetRowMapper());
             return pets; 
