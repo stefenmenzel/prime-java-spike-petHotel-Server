@@ -13,7 +13,7 @@ public class Pet{
     private String type;
     private String color;
     private String date;
-    private Boolean checked_in;
+    private boolean checked_in;
     private int owner_id;
 
     public int getId(){
@@ -56,11 +56,11 @@ public class Pet{
         this.date = date;
     }
 
-    public Boolean getCheckedIn(){
+    public boolean getCheckedIn(){
         return this.checked_in;
     }
 
-    public void setCheckedIn(Boolean checked_in){
+    public void setCheckedIn(boolean checked_in){
         this.checked_in = checked_in;
     }
 
@@ -77,7 +77,7 @@ public class Pet{
     //This is a constructor function. When you declare a new instance of this class you can 
     //pass in a set of values that will initialize this class instance with all the data accessible.
     //this is essentially just a container for our pet.
-    public Pet(int id, String name, String type, String color, String date, Boolean checked_in, int owner_id){
+    public Pet(int id, String name, String type, String color, String date, boolean checked_in, int owner_id){
         this.id = id;
         this.name = name;
         this.type = type;
