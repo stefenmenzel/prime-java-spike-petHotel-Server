@@ -11,11 +11,27 @@ CREATE TABLE "pets"
 (
 	"id" SERIAL PRIMARY KEY,
 	"name" VARCHAR (100),
+	"type" VARCHAR (100),
 	"color" VARCHAR (20),
 	"date" DATE,
 	"checked_in" BOOLEAN,
-	"owner_id" INT
+	"owner_id" INT REFERENCES "owners"
 );
 
+
+INSERT INTO "owners"
+	("name")
+VALUES
+	('Chris'),
+	('Ally'),
+	('Dane');
+
+INSERT INTO "pets"
+	("name", "type", "color", "checked_in", "owner_id")
+VALUES
+	('Charlie', 'Shih-tzu', 'Black', FALSE, 1),
+	('Thorin', 'Rabbit', 'White', FALSE, 1),
+	('Gatsby', 'Cat', 'White', FALSE, 2),
+	('Juniper', 'Cat', 'Tabby', FALSE, 3);
 
 
