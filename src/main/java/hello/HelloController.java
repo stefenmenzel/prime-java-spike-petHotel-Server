@@ -20,14 +20,21 @@ public class HelloController {
         return "Greetings from Spring Boot!";
     }
 
-    @RequestMapping("/book")
-    public List<Book> getAllBooks() {
-        String query = "SELECT * FROM books";
-        List<Book> books = jdbcTemplate.query(
-            query, new BookRowMapper());
-          return books;
-    }
+    // @RequestMapping("/book")
+    // public List<Book> getAllBooks() {
+    //     String query = "SELECT * FROM books";
+    //     List<Book> books = jdbcTemplate.query(
+    //         query, new BookRowMapper());
+    //       return books;
+    // }
         
+    @RequestMapping("/pets")
+    public List<Pet> getAllPets(){
+        String query = "SELECT * FROM pet_hotel";
+        List<Pet> pets = jdbcTemplate.query(
+            query, new PetRowMapper());
+            return pets; 
+    }
     
     
 }
