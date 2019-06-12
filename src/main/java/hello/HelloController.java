@@ -36,5 +36,11 @@ public class HelloController {
             return pets; 
     }
     
-    
+    @RequestMapping("/owners")
+    public List<Owner> getAllOwners(){
+        String query = "SELECT * FROM owners";
+        List<Owner> owners = jdbcTemplate.query(
+            query, new OwnerRowMapper());
+            return owners;
+    }
 }
