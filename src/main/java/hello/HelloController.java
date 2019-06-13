@@ -14,12 +14,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.validation.BindingResult;
+
 
 import hello.Book;
 
@@ -99,17 +103,12 @@ public class HelloController {
         jdbcTemplate.update(query, owner.getName());
     }
 
-    // @RequestMapping(value = "/deleteOwner/{id}", method = RequestMethod.DELETE)
-    // @ResponseBody 
-    // public String deleteOwner(@RequestBody Owner deleteOwner) throws IOException{
-    //     String query = "DELETE FROM owners WHERE id = ?;";
-    //     jdbcTemplate.update(query, deleteOwner.getId());
-    //     return "Delete owner " + deleteOwner.getId();
-    // }
+    @RequestMapping(value = "/owners/delete/{id}", method = RequestMethod.DELETE)
+    public String deleteOwner(@PathVariable("id") String ownerId) throws IOException{
+        String query = "DELETE FROM owners WHERE id = ?;";
+        jdbcTemplate.update(query, Integer.parseInt(ownerId));
+        return "Delete owner " + ownerId;
+    }
 
-    // @DeleteMapping("/owner/{id}")
-    // public ResponseEntity<Void> deleteOwner(@PathVariable("id") Integer id) {
-    //     jdbcTemplate.deleteOwner(id);
-    //     return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-    // }
+
 }
