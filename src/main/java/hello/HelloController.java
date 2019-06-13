@@ -57,8 +57,9 @@ public class HelloController {
     @RequestMapping(value = "/addPet", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity addPet(@RequestBody Pet pet, BindingResult bindingResult) {
-        String query = "INSERT INTO pets (name, type, color, date, owner_id) VALUES (?, ?, ?, ?, ?);";
-        jdbcTemplate.update(query, pet.getName(), pet.getType(), pet.getColor(), pet.getDate(), pet.getOwner_id());
+        //String query = "INSERT INTO pets (name, type, color, date, owner_id) VALUES (?, ?, ?, ?, ?);";        
+        //jdbcTemplate.update(query, pet.getName(), pet.getType(), pet.getColor(), pet.getDate(), pet.getOwner_id());        
+                        
 
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>("error in add pet POST route: 500", HttpStatus.BAD_REQUEST);
