@@ -82,10 +82,34 @@ public class HelloController {
 
     @RequestMapping(value = "/addOwner", method = RequestMethod.POST)
     @ResponseBody
-    public String addOwner(@RequestBody Owner newOwner) throws IOException{
-        // final JsonNode jsonNode = mapper.readTree(newOwner);
+    public ResponseEntity addOwner(@RequestBody Owner owner, BindingResult bindingResult){
         String query = "INSERT INTO owners (name) VALUES (?);";
-        jdbcTemplate.update(query, newOwner.getName());
-        return "New owner added " + newOwner.getName();
+        jdbcTemplate.update(query, owner.getName());
+
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>("error in add owner POST route: 500", HttpStatus.BAD_REQUEST);
+        } else {
+            addOwner(owner);
+            return new ResponseEntity<>("response from owner POST route: 201", HttpStatus.CREATED);
+        }
     }
+
+    public void addOwner(Owner owner) {
+        String query = "INSERT INTO owners (name) VALUES (?);";
+        jdbcTemplate.update(query, owner.getName());
+    }
+
+    // @RequestMapping(value = "/deleteOwner/{id}", method = RequestMethod.DELETE)
+    // @ResponseBody 
+    // public String deleteOwner(@RequestBody Owner deleteOwner) throws IOException{
+    //     String query = "DELETE FROM owners WHERE id = ?;";
+    //     jdbcTemplate.update(query, deleteOwner.getId());
+    //     return "Delete owner " + deleteOwner.getId();
+    // }
+
+    // @DeleteMapping("/owner/{id}")
+    // public ResponseEntity<Void> deleteOwner(@PathVariable("id") Integer id) {
+    //     jdbcTemplate.deleteOwner(id);
+    //     return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+    // }
 }
