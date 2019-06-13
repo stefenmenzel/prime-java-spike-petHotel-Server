@@ -48,31 +48,9 @@ public class HelloController {
 
     @RequestMapping(value = "/addPet", method = RequestMethod.POST)
     @ResponseBody
-    public String addPet(@RequestBody Pet pet) throws IOException{
-        // final JsonNode jsonNode = mapper.readTree(newPet);
-        // Pet pet = new Pet();
-
-        // String name = jsonNode.findValue("name").toString();
-        // String type = jsonNode.findValue("type").toString();
-        // String color = jsonNode.findValue("color").toString();
-        // String date = jsonNode.findValue("date").toString();
-        // int owner_id = Integer.parseInt(jsonNode.findValue("owner_id").toString());
-
-        // pet.setName(name);
-        // pet.setType(type);
-        // pet.setColor(color);
-        // pet.setDate(date);
-        // pet.setOwnerId(owner_id);
-        
-        // String name = pet.getName();
-        // String type = pet.getType();
-        // String color = pet.getColor();
-        // String date = pet.getDate();
-        // int owner_id = pet.getOwnerId();
-        // System.out.println("req.body: " + test);
-
-        // String query = "INSERT INTO pets (name, type, color, date, owner_id) VALUES (?, ?, ?, ?, ?);";
-        // jdbcTemplate.update(query, name, type, color, date, owner_id);
+    public String addPet(@RequestBody Pet pet){
+        String query = "INSERT INTO pets (name, type, color, date, owner_id) VALUES (?, ?, ?, ?, ?);";
+        jdbcTemplate.update(query, pet.getName(), pet.getType(), pet.getColor(), pet.getDate(), pet.getOwner_id());
         return "back from the post: " + pet.getName() + " " + pet.getType() + " " + pet.getColor()+ " " + pet.getDate() + " " + pet.getChecked_in() + " " + pet.getOwner_id();        
     }
     
