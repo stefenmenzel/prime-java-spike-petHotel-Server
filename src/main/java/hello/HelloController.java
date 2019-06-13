@@ -5,16 +5,22 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 import java.util.List;
 
+import javax.net.ssl.HttpsURLConnection;
+
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.validation.BindingResult;
+
 import hello.Book;
 
 @RestController
@@ -48,10 +54,22 @@ public class HelloController {
 
     @RequestMapping(value = "/addPet", method = RequestMethod.POST)
     @ResponseBody
-    public String addPet(@RequestBody Pet pet){
+    public ResponseEntity addPet(@RequestBody Pet pet, BindingResult bindingResult){
         String query = "INSERT INTO pets (name, type, color, date, owner_id) VALUES (?, ?, ?, ?, ?);";
         jdbcTemplate.update(query, pet.getName(), pet.getType(), pet.getColor(), pet.getDate(), pet.getOwner_id());
-        return "back from the post: " + pet.getName() + " " + pet.getType() + " " + pet.getColor()+ " " + pet.getDate() + " " + pet.getChecked_in() + " " + pet.getOwner_id();        
+        
+        if(bindingResult.hasErrors()){
+            return new ResponseEntity<>("error in add pet POST route: 500", HttpStatus.BAD_REQUEST);
+        }
+        else{
+            addPet(pet);
+            return new ResponseEntity<>("response from add pet POST route: 201", HttpStatus.CREATED);
+        }        
+    }
+
+    public void addPet(Pet pet){
+        String query = "INSERT INTO pets (name, type, color, date, owner_id) VALUES (?, ?, ?, ?, ?);";
+        jdbcTemplate.update(query, pet.getName(), pet.getType(), pet.getColor(), pet.getDate(), pet.getOwner_id());
     }
     
     @RequestMapping(value = "/owners", method = RequestMethod.GET)
