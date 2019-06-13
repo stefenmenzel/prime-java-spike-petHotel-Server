@@ -77,11 +77,20 @@ public class HelloController {
         return "owner_id is: " + jsonNode.findValue("owner_id");
     }
     
-    @RequestMapping("/owners")
+    @RequestMapping(value = "/owners", method = RequestMethod.GET)
     public List<Owner> getAllOwners(){
         String query = "SELECT * FROM owners";
         List<Owner> owners = jdbcTemplate.query(
             query, new OwnerRowMapper());
             return owners;
+    }
+
+    @RequestMapping(value = "/addOwner", method = RequestMethod.POST)
+    @ResponseBody
+    public String addOwner(@RequestBody Owner newOwner) throws IOException{
+        // final JsonNode jsonNode = mapper.readTree(newOwner);
+        String query = "INSERT INTO owners (name) VALUES (?);";
+        jdbcTemplate.update(query, newOwner.getName());
+        return "New owner added " + newOwner.getName();
     }
 }
