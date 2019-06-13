@@ -122,4 +122,11 @@ public class HelloController {
         // }
     }
 
+    @RequestMapping(value = "/pets/delete/{id}", method = RequestMethod.DELETE)
+    public String deletePet(@PathVariable("id") String petId) throws IOException {
+        String query = "DELETE FROM pets WHERE id=?;";
+        jdbcTemplate.update(query, Integer.parseInt(petId));
+        return "Delete pet" + petId;
+    }
+
 }
