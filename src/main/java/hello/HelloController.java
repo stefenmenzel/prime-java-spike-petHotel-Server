@@ -65,9 +65,16 @@ public class HelloController {
     @RequestMapping(value = "/addOwner", method = RequestMethod.POST)
     @ResponseBody
     public String addOwner(@RequestBody Owner newOwner) throws IOException{
-        // final JsonNode jsonNode = mapper.readTree(newOwner);
         String query = "INSERT INTO owners (name) VALUES (?);";
         jdbcTemplate.update(query, newOwner.getName());
         return "New owner added " + newOwner.getName();
+    }
+
+    @RequestMapping(value = "/deleteOwner", method = RequestMethod.DELETE)
+    @ResponseBody 
+    public String deleteOwner(@RequestBody Owner deleteOwner) throws IOException{
+        String query = "DELETE FROM owners WHERE id = ?;";
+        jdbcTemplate.update(query, deleteOwner.getId());
+        return "Delete owner " + deleteOwner.getId();
     }
 }
