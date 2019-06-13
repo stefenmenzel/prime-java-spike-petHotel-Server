@@ -21,8 +21,8 @@ public class PetRowMapper implements RowMapper<Pet>{
         pet.setType(rs.getString("type"));
         pet.setColor(rs.getString("color"));
         pet.setDate(rs.getString("date"));
-        pet.setCheckedIn(rs.getBoolean("checked_in"));
-        pet.setOwnerId(rs.getInt("owner_id"));
+        pet.setChecked_in(rs.getBoolean("checked_in"));
+        pet.setOwner_id(rs.getInt("owner_id"));
 
         //send out a newly created pet instance...object?
         return pet;

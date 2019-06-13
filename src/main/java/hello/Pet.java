@@ -56,19 +56,19 @@ public class Pet{
         this.date = date;
     }
 
-    public boolean getCheckedIn(){
+    public boolean getChecked_in(){
         return this.checked_in;
     }
 
-    public void setCheckedIn(boolean checked_in){
+    public void setChecked_in(boolean checked_in){
         this.checked_in = checked_in;
     }
 
-    public int getOwnerId(){
+    public int getOwner_id(){
         return this.owner_id;
     }
 
-    public void setOwnerId(int id){
+    public void setOwner_id(int id){
         this.owner_id = id;
     }
 
