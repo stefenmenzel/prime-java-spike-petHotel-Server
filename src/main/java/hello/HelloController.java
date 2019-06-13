@@ -83,10 +83,7 @@ public class HelloController {
 
     @RequestMapping(value = "/addOwner", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity addOwner(@RequestBody Owner owner, BindingResult bindingResult) {
-        String query = "INSERT INTO owners (name) VALUES (?);";
-        jdbcTemplate.update(query, owner.getName());
-
+    public ResponseEntity addOwner(@RequestBody Owner owner, BindingResult bindingResult) {        
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>("error in add owner POST route: 500", HttpStatus.BAD_REQUEST);
         } else {
